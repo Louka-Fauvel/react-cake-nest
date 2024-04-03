@@ -6,10 +6,8 @@ import { BrowserRouter } from 'react-router-dom'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
     <React.StrictMode>
-        <div className="flex flex-1">
-            <BrowserRouter>
-                <App/>
-            </BrowserRouter>
-        </div>
+        <BrowserRouter>
+            <App/>
+        </BrowserRouter>
     </React.StrictMode>,
 )
