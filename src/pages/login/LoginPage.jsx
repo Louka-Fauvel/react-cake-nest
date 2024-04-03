@@ -54,7 +54,7 @@ const Container = styled.div `
 `
 
 const DivLogo = styled.div `
-    margin-top: 25%;
+    margin-top: 10vw;
     display: flex;
     flex-direction: row;
     justify-content: center;
