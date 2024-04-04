@@ -114,12 +114,13 @@ const FormButton = styled.button `
     border-width: 2px;
     border-style: solid;
     border-radius: ${theme.borderRadius.extraRound};
-    border-color: ${theme.colors.blue};
+    border-color: ${theme.colors.primary};
     background-color: ${theme.colors.primary};
     color: ${theme.colors.white};
     cursor: pointer;
 
     &&:hover {
     background-color: ${theme.colors.blue};
+    border-color: ${theme.colors.blue};
     }
 `
