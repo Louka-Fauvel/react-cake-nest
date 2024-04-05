@@ -28,7 +28,8 @@ const CardDiv = styled.div `
     font-style: ${theme.fonts.styles.normal};
 
     img {
-        width: 300px;
+        width: 100%;
+        object-fit: contain;
     }
 
     div {

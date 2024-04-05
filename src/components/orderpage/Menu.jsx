@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import Card from "./Card";
+import { theme } from "../../theme";
 
 export default function Menu({menus}) {
 
@@ -22,4 +23,5 @@ const MenuDiv = styled.div `
     grid-template-columns: repeat(4, minmax(0, 1fr));
     grid-row-gap: 60px;
     grid-column-gap: 80px;
+    border-radius: 0 0 ${theme.borderRadius.extraRound} ${theme.borderRadius.extraRound};
 `

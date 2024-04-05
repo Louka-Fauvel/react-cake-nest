@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../theme";
 import NavbarLogo from "./left/NavbarLogo";
 import Profile from "./right/Profil";
+import Admin from "./right/Admin";
 
 export default function Navbar({ firstname }) {
 
@@ -9,18 +10,18 @@ export default function Navbar({ firstname }) {
         <NavbarDiv>
             <NavbarFlex>
                 <NavbarLogo/>
-                <Profile firstname={firstname}/>
+                <div className="right">
+                    <Admin/>
+                    <div>
+                        <Profile firstname={firstname}/>
+                    </div>
+                </div>
             </NavbarFlex>
         </NavbarDiv>
     );
 }
 
 const NavbarDiv = styled.nav `
-    position: sticky;
-    top: 0%;
-    left: 0%;
-    right: 0%;
-    background-color: ${theme.colors.white};
     box-shadow: ${theme.shadows.medium};
     padding: ${theme.spacing.md};
     font-family: ${theme.fonts.families.OpenSans};
@@ -29,4 +30,8 @@ const NavbarDiv = styled.nav `
 const NavbarFlex = styled.div `
     display: flex;
     justify-content: space-between;
+    .right {
+        display: flex;
+        flex-direction: row;
+    }
 `
