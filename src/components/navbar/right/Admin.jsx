@@ -12,6 +12,7 @@ export default function Admin() {
     const adminChange = () => {
         setIsAdmin(!isAdmin);
         if (isAdmin) {
+            document.getElementById("panelSystem").classList.add("hidden");
             toast('Mode normal actif', {
                 position: "top-right",
                 autoClose: 5000,
@@ -24,6 +25,7 @@ export default function Admin() {
                 transition: Bounce,
             });
         } else {
+            document.getElementById("panelSystem").classList.remove("hidden");
             toast('Mode admin actif', {
                 position: "top-right",
                 autoClose: 5000,

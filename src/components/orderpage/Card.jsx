@@ -62,7 +62,7 @@ const Button = styled.button `
     cursor: pointer;
 
     &&:hover {
-    background-color: ${theme.colors.blue};
-    border-color: ${theme.colors.blue};
+        background-color: ${theme.colors.blue};
+        border-color: ${theme.colors.blue};
     }
 `

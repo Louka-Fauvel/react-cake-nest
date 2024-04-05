@@ -4,16 +4,21 @@ import styled from "styled-components";
 import { theme } from "../../theme";
 import Menu from "../../components/orderpage/Menu";
 import { fakeMenu, fakeSmallMenu } from "../../fakeData/fakeMenu";
+import { createContext } from "react";
 
 export default function OrderPage() {
 
     const { firstname } = useParams();
+    const [isAdmin, setIsAdmin] = useState(false);
+    const AdminContext = createContext();
 
     return (
         <Container>
             <Outline>
-                <Navbar firstname={firstname}/>
-                <Menu menus={fakeMenu}/>
+                <AdminContext.Provider value={isAdmin}>
+                    <Navbar firstname={firstname}/>
+                    <Menu menus={fakeMenu}/>
+                </AdminContext.Provider>
             </Outline>
         </Container>
     );
