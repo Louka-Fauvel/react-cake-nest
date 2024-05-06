@@ -1,18 +1,17 @@
 import styled from "styled-components";
 import { theme } from "../../../theme";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Bounce, ToastContainer, toast } from "react-toastify";
-
 import 'react-toastify/dist/ReactToastify.css';
+import { AdminContext } from "../../../context/order/AdminContext";
 
 export default function Admin() {
 
-    const [isAdmin, setIsAdmin] = useState(false);
+    const {isAdmin, setIsAdmin} = useContext(AdminContext);
 
     const adminChange = () => {
         setIsAdmin(!isAdmin);
         if (isAdmin) {
-            document.getElementById("panelSystem").classList.add("hidden");
             toast('Mode normal actif', {
                 position: "top-right",
                 autoClose: 5000,
@@ -25,7 +24,6 @@ export default function Admin() {
                 transition: Bounce,
             });
         } else {
-            document.getElementById("panelSystem").classList.remove("hidden");
             toast('Mode admin actif', {
                 position: "top-right",
                 autoClose: 5000,

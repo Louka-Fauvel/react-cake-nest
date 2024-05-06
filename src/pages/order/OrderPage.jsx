@@ -3,19 +3,19 @@ import Navbar from "../../components/navbar/Navbar";
 import styled from "styled-components";
 import { theme } from "../../theme";
 import Menu from "../../components/orderpage/Menu";
-import { fakeMenu, fakeSmallMenu } from "../../fakeData/fakeMenu";
-import { createContext } from "react";
+import { fakeMenu } from "../../fakeData/fakeMenu";
+import { useState } from "react";
+import { AdminContext } from "../../context/order/AdminContext";
 
 export default function OrderPage() {
 
     const { firstname } = useParams();
     const [isAdmin, setIsAdmin] = useState(false);
-    const AdminContext = createContext();
 
     return (
         <Container>
             <Outline>
-                <AdminContext.Provider value={isAdmin}>
+                <AdminContext.Provider value={{isAdmin, setIsAdmin}}>
                     <Navbar firstname={firstname}/>
                     <Menu menus={fakeMenu}/>
                 </AdminContext.Provider>
