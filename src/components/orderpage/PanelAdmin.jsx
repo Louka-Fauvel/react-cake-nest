@@ -5,10 +5,11 @@ import styled from "styled-components";
 import { theme } from "../../theme";
 import { useContext, useState } from "react";
 import { AdminContext } from "../../context/order/AdminContext";
+import FormCard from "./FormCard";
 
 export default function PanelAdmin() {
 
-    const {isAdmin, setIsAdmin} = useContext(AdminContext);
+    const {isAdmin} = useContext(AdminContext);
 
     const [isReduce, setIsReduce] = useState(false);
     const [isAdd, setIsAdd] = useState(true);
@@ -49,7 +50,7 @@ export default function PanelAdmin() {
                     :
                         <div className="block">
                             {isAdd ? 
-                                <p>Ajouter un produit</p>
+                                <FormCard/>
                             : 
                                 <p>Modifier un produit</p>
                             }
@@ -82,7 +83,7 @@ const PanelContainer = styled.div `
         margin-right: 5vw;
         padding: 2vw;
         width: 85vw;
-        height: 21vh;
+        height: 30vh;
         border-width: 0.5vw;
         border-style: solid;
         border-color: ${theme.colors.greyMedium};

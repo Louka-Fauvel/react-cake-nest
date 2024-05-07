@@ -10,14 +10,15 @@ import { AdminContext } from "../../context/order/AdminContext";
 export default function OrderPage() {
 
     const { firstname } = useParams();
+    const [menus, setMenus] = useState(fakeMenu);
     const [isAdmin, setIsAdmin] = useState(false);
 
     return (
         <Container>
             <Outline>
-                <AdminContext.Provider value={{isAdmin, setIsAdmin}}>
+                <AdminContext.Provider value={{isAdmin, setIsAdmin, menus, setMenus}}>
                     <Navbar firstname={firstname}/>
-                    <Menu menus={fakeMenu}/>
+                    <Menu/>
                 </AdminContext.Provider>
             </Outline>
         </Container>
