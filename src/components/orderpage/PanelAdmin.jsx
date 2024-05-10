@@ -6,13 +6,11 @@ import { theme } from "../../theme";
 import { useContext, useState } from "react";
 import { AdminContext } from "../../context/order/AdminContext";
 import FormCard from "./FormCard";
+import { HiCursorClick } from "react-icons/hi";
 
 export default function PanelAdmin() {
 
-    const {isAdmin} = useContext(AdminContext);
-
-    const [isReduce, setIsReduce] = useState(false);
-    const [isAdd, setIsAdd] = useState(true);
+    const {isAdmin, isReduce, setIsReduce, isAdd, setIsAdd, selected} = useContext(AdminContext);
 
     const reduceOpen = () => {
         setIsReduce(!isReduce);
@@ -48,11 +46,19 @@ export default function PanelAdmin() {
                     {isReduce ? 
                         <div className="blockReduce"></div>
                     :
-                        <div className="block">
-                            {isAdd ? 
-                                <FormCard/>
-                            : 
-                                <p>Modifier un produit</p>
+                        <div>
+                            {isAdd ?
+                                <div className="block">
+                                    <FormCard/>
+                                </div>
+                            :
+                                <div className="block" style={selected.length == 0 ? {lineHeight: '25vh'} : {lineHeight: 'normal'}}>
+                                    {selected.id == 0 ?
+                                        <Text>Cliquer sur un produit pour le modifier <HiCursorClick/></Text>
+                                    :
+                                        <FormCard/>
+                                    }
+                                </div>
                             }
                         </div>
                     }
@@ -159,4 +165,11 @@ const ButtonBlack = styled.button `
         background-color: ${theme.colors.background_dark};
         border-color: ${theme.colors.background_dark};
     }
+`
+
+const Text = styled.p `
+    font-family: ${theme.fonts.families.Pacifico};
+    font-weight: ${theme.fonts.weights.regular};
+    font-style: ${theme.fonts.styles.normal};
+    font-size: ${theme.fonts.size.P3};
 `

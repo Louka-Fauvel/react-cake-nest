@@ -10,47 +10,111 @@ import { FiCheck } from "react-icons/fi";
 
 export default function FormCard() {
 
-    const {menus, setMenus} = useContext(AdminContext);
+    const {menus, setMenus, isAdd, selected, setSelected} = useContext(AdminContext);
     const [isSuccess, setIsSuccess] = useState(false);
+    const [title, setTitle] = useState("");
     const [imageSource, setImageSource] = useState("");
+    const [price, setPrice] = useState("");
 
-    const handleSubmit = useCallback((event) => {
+    const AddSubmit = useCallback((event) => {
 
         event.preventDefault();
-        const data = {
-            id: menus[menus.length-1].id + 1,
-            imageSource: event.target.imageSource.value,
-            title: event.target.title.value,
-            price: event.target.price.value,
-            quantity: 0,
-            isAvailable: true,
-            isAdvertised: false,
-        };
-        setMenus((m) => [...m, data]);
-        setIsSuccess(true);
-        event.target.reset();
+        if(isAdd) {
+            const data = {
+                id: menus[menus.length-1].id + 1,
+                imageSource: event.target.imageSource.value,
+                title: event.target.title.value,
+                price: event.target.price.value,
+                quantity: 0,
+                isAvailable: true,
+                isAdvertised: false,
+            };
+            setMenus((m) => [...m, data]);
+            setTitle("");
+            setImageSource("");
+            setPrice("");
+            setIsSuccess(true);
+        }
 
     }, [menus]);
+
+    const changeData = useCallback((selected) => {
+        const index = menus.findIndex(i => i.id === selected.id);
+        const newMenus = [...menus];
+        newMenus[index] = selected;
+        setMenus(newMenus);
+    }, [menus]);
+
+    const changeTitle = useCallback((event) => {
+
+        let data = {};
+        setSelected((s) => {
+            data = {
+                ...s,
+                title: event.target.value,
+            };
+            changeData(data);
+            return data;
+
+        });
+
+    }, [selected]);
+
+    const changeImageSource = useCallback((event) => {
+        
+        let data = {};
+        setSelected((s) => {
+            data = {
+                ...s,
+                imageSource: event.target.value,
+            };
+            changeData(data);
+            return data;
+
+        });
+
+    }, [selected]);
+
+    const changePrice = useCallback((event) => {
+        
+        let data = {};
+        setSelected((s) => {
+            data = {
+                ...s,
+                price: event.target.value,
+            };
+            changeData(data);
+            return data;
+
+        });
+
+    }, [selected]);
 
     return (
         <>
             <FlexForm>
                 <div className="divImg">
-                    {imageSource == "" ? 
+                    {imageSource != "" || selected.imageSource != "" && !isAdd ? 
+                        <FrameImage>
+                            <img src={!isAdd ? selected.imageSource : imageSource} alt="image"/>
+                        </FrameImage>
+                    : 
                         <FrameNoImage>
                             Aucune image
                         </FrameNoImage>
-                    : 
-                        <FrameImage>
-                            <img src={imageSource} alt="image"/>
-                        </FrameImage>
                     }
                 </div>
                 <div className="divForm">
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={AddSubmit}>
                         <div className="divInput">
                             <GiCupcake className="self-center"/>
-                            <Input type="text" placeholder="Nom du produit" name="title"/>
+                            <Input 
+                                type="text" 
+                                placeholder="Nom du produit" 
+                                name="title"
+                                onChange={!isAdd ? changeTitle : (e) => setTitle(e.target.value)}
+                                value={!isAdd ? selected.title : title}
+                            />
                         </div>
                         <div className="divInput">
                             <BsFillCameraFill className="self-center"/>
@@ -58,19 +122,37 @@ export default function FormCard() {
                                 type="text" 
                                 placeholder="Lien de l'url d'une image" 
                                 name="imageSource"
-                                onChange={(e) => setImageSource(e.target.value)}
+                                onChange={!isAdd ? changeImageSource : (e) => setImageSource(e.target.value)}
+                                value={!isAdd ? selected.imageSource : imageSource}
                             />
                         </div>
                         <div className="divInput">
                             <MdOutlineEuro className="self-center"/>
-                            <Input type="number" placeholder="Prix" name="price" min="0" step="0.01"/>
+                            <Input 
+                                type="number" 
+                                placeholder="Prix" 
+                                name="price" 
+                                min="0" 
+                                step="0.01"
+                                onChange={!isAdd ? changePrice : (e) => setPrice(e.target.value)}
+                                value={!isAdd ? selected.price : price}
+                            />
                         </div>
+                        {!isAdd && <input type="hidden" name="id" value={selected.id}/>}
                         <div className="divButton">
-                            <FormButton>Ajouter un nouveau produit</FormButton>
-                            {isSuccess &&
+                            {!isAdd ?
                                 <>
-                                    <FiCheck className="self-center circle"/>
-                                    <p>Ajouté avec succès !</p>
+                                    <p style={{color: theme.colors.primary}}>Cliquer sur un produit pour le modifier en temps réel</p>
+                                </>
+                            :
+                                <>
+                                    <FormButton>Ajouter un nouveau produit</FormButton>
+                                    {isSuccess &&
+                                        <>
+                                            <FiCheck className="self-center circle"/>
+                                            <p>Ajouté avec succès !</p>
+                                        </>
+                                    }
                                 </>
                             }
                         </div>
